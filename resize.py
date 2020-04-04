@@ -22,6 +22,13 @@ def resize(image, factor):
     new_dimensions = tuple(new_dimensions.astype(int))
     newImg = np.resize(image, new_dimensions)
     
+    for y in np.arange(0, new_dimensions[0]):
+        for x in np.arange(0, new_dimensions[1]):
+            try:
+                newImg[y, x] = image[int(np.ceil(y / factor)), int(np.ceil(x / factor))]
+            except:
+                pass
+    
     return newImg
 
 if __name__ == "__main__":
@@ -29,6 +36,6 @@ if __name__ == "__main__":
     
     img = cv2.imread("images\\mars.jpg")
     
-    cv2.imshow("Resized Image", resize(img, .33))
+    cv2.imshow("Resized Image", resize(img, 1/3))
     cv2.waitKey(0)
     cv2.destroyAllWindows()
