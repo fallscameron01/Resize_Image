@@ -11,13 +11,24 @@ def resize(image, factor):
     Parameters
     ----------
     image - ndarray - the image to resize
-    factor - int - scaling factor to resize by
+    factor - float - scaling factor to resize by
 
     Returns
     -------
     ndarray - the resized image
     """
-    pass
+    h, w, d = image.shape
+    new_dimensions = np.floor((h*factor, w*factor, d))
+    new_dimensions = tuple(new_dimensions.astype(int))
+    newImg = np.resize(image, new_dimensions)
+    
+    return newImg
 
 if __name__ == "__main__":
-    pass
+    import cv2
+    
+    img = cv2.imread("images\\mars.jpg")
+    
+    cv2.imshow("Resized Image", resize(img, .33))
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
